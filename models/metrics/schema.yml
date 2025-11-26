@@ -1,0 +1,56 @@
+version: 2
+
+models:
+  - name: chw_activity_monthly
+    description: >
+      Monthly aggregation of CHW activities for dashboard performance metrics.
+      Uses a 26th-of-month cutoff rule to assign activities to the correct reporting month.
+    columns:
+      - name: chv_id
+        description: Unique identifier for the Community Health Worker.
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_chv')
+              field: chv_id
+
+      - name: report_month
+        description: First day of the reporting month (YYYY-MM-01).
+        tests:
+          - not_null
+
+      - name: total_activities
+        description: Total number of activities performed by the CHW in the month.
+        tests:
+          - not_null
+
+      - name: unique_households_visited
+        description: Distinct households visited (counted once even if visited multiple times).
+        tests:
+          - not_null
+
+      - name: unique_patients_served
+        description: Distinct patients served (NULL patient_id values are ignored).
+        tests:
+          - not_null
+
+      - name: pregnancy_visits
+        description: Count of activities where activity_type = 'pregnancy_visit'.
+        tests:
+          - not_null
+
+      - name: child_assessments
+        description: Count of activities where activity_type = 'child_assessment'.
+        tests:
+          - not_null
+
+      - name: family_planning_visits
+        description: Count of activities where activity_type = 'family_planning'.
+        tests:
+          - not_null
+
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - chv_id
+            - report_month

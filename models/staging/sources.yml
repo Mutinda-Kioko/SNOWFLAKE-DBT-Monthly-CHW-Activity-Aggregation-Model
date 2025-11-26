@@ -1,0 +1,9 @@
+version: 2
+
+sources:
+  - name: chw
+    database: CHW
+    schema: marts
+    tables:
+      - name: fct_chv_activity
+        description: "Raw CHW activity fact table with sample data"
