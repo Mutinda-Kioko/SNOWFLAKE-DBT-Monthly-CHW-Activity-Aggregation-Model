@@ -50,6 +50,7 @@ dbt test --select chw_activity_monthly
 
 ### Project Structure
 
+```bash
 models/
 ├── metrics/
 │ ├── chw_activity_monthly.sql
@@ -60,6 +61,8 @@ macros/
 └── month_assignment.sql
 └── show_results_after_run.sql ← auto-prints results after run
 packages.yml ← includes dbt_utils
+
+```
 
 ### Tests
 
